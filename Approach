@@ -1,0 +1,123 @@
+# Testing Approach – QA Automation Case Study
+
+## Overview
+This document outlines my overall testing approach for the QA Automation case study.  
+The focus is on demonstrating a **reliable automation mindset**, scalable framework thinking, and practical strategies for testing a **multi-tenant B2B SaaS platform**.
+
+Rather than aiming for exhaustive implementation, the approach prioritizes **clarity of reasoning, real-world constraints, and maintainability**.
+
+---
+
+## 1. Approach to Debugging Flaky Tests
+
+### Identifying Flakiness
+Flaky tests are tests that produce inconsistent results without any code changes.  
+In UI automation, flakiness is commonly caused by timing issues, dynamic content, and environment differences.
+
+### Common Causes Considered
+- Missing synchronization for dynamically loaded UI elements
+- Strict assertions executed before navigation completes
+- Network latency and slower execution in CI/CD pipelines
+- Headless browser behavior differences
+- Authentication variations such as optional 2FA
+- Tenant-specific data loading delays
+
+### Prevention Strategy
+- Prefer Playwright’s auto-waiting assertions (`expect`)
+- Wait for application state instead of fixed delays
+- Avoid hard-coded sleeps
+- Make tests environment-aware and CI-friendly
+- Add retries only for transient failures
+
+The goal is to build automation that teams can **trust consistently**.
+
+---
+
+## 2. Test Automation Framework Design Approach
+
+### Design Principles
+- Separation of concerns
+- Scalability for future features and tenants
+- Reusability and maintainability
+- Easy CI/CD integration
+
+### Key Decisions
+- Use **Page Object Model (POM)** to separate UI logic from test logic
+- Separate tests by type: UI, API, Integration
+- Centralize configuration and utilities
+- Use fixtures for setup and teardown
+
+This structure allows the framework to grow as the application scales across platforms and tenants.
+
+---
+
+## 3. Multi-Tenant Testing Strategy
+
+Multi-tenant systems introduce unique testing challenges related to **data isolation and security**.
+
+### Validation Approach
+- Use tenant-specific users and credentials
+- Create test data using tenant-aware APIs
+- Verify data visibility only within the owning tenant
+- Confirm absence of data leakage across tenants
+
+Tenant isolation is treated as both a **functional and security requirement**.
+
+---
+
+## 4. API + UI Integration Testing Approach
+
+### Why API + UI?
+- API tests provide fast and reliable test data setup
+- UI tests validate real user experience
+- Integration tests ensure end-to-end consistency
+
+### Test Flow
+1. Create a project using API
+2. Validate project presence in Web UI
+3. Verify accessibility on mobile devices
+4. Ensure tenant isolation using a different tenant user
+
+This approach reduces dependency on slow UI setup while maintaining confidence in end-user workflows.
+
+---
+
+## 5. Cross-Platform & Mobile Testing
+
+### Strategy
+- Run core UI tests across major browsers
+- Use BrowserStack for mobile validation
+- Prioritize smoke tests for mobile to optimize cost
+- Reuse test data across platforms
+
+Cross-platform testing is handled selectively to balance **coverage and execution cost**.
+
+---
+
+## 6. Test Data Management
+
+### Principles
+- API-driven test data creation
+- Unique test data per execution
+- Minimal shared state between tests
+- Cleanup through API or scheduled jobs
+
+Effective test data management ensures reliable and repeatable automation runs.
+
+---
+
+## 7. Handling Real-World Constraints
+
+The approach accounts for:
+- CI/CD execution variability
+- Network instability
+- Cost constraints on cloud testing platforms
+- Incomplete or evolving requirements
+
+Assumptions are documented clearly to avoid ambiguity and support collaboration.
+
+---
+
+## Conclusion
+This testing approach emphasizes **stability, clarity, and scalability** over raw test count.  
+As an intern, my goal is to build automation that is easy to understand, easy to extend, and aligned with real-world engineering practices.
