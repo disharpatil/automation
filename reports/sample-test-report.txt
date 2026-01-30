@@ -1,0 +1,15 @@
+QA Automation Case Study – Test Execution Report
+
+Total Tests Executed: 4
+Passed: 4
+Failed: 0
+Skipped: 0
+
+Execution Environment:
+- Framework: Pytest
+- UI Tool: Playwright
+- Environment: QA / Staging
+
+Notes:
+Tests are designed to demonstrate automation strategy,
+structure, and testing mindset rather than full execution.
