@@ -1,0 +1,9 @@
+{
+  "projects": [
+    {
+      "name": "Automation Test Project",
+      "description": "Sample project for testing",
+      "tenant": "company1"
+    }
+  ]
+}
